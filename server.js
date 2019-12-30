@@ -20,6 +20,8 @@ const login = require('connect-ensure-login');
 
 
 const app = express();
+// Para redirigir trafico HTTP a HTTPS
+app.get('*', (req, res) => res.redirect('https://' + req.headers.host + req.url) );
 
 const config = require('./config');
 const apiRoutes = require('./apiRoutes');
@@ -172,9 +174,8 @@ app.get('/perfil', isUserAuthenticated, (req, res) => {
 //         next();
 // });
 
-// let http = express.createServer();
-// // Para redirigir trafico HTTP a HTTPS
-// http.get('*', (req, res) => res.redirect('https://' + req.headers.host + req.url) );
+
+
 
 
 if (!process.env.NODE_ENV) {
