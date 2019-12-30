@@ -172,6 +172,11 @@ app.get('/perfil', isUserAuthenticated, (req, res) => {
 //         next();
 // });
 
+// let http = express.createServer();
+// // Para redirigir trafico HTTP a HTTPS
+// http.get('*', (req, res) => res.redirect('https://' + req.headers.host + req.url) );
+
+
 if (!process.env.NODE_ENV) {
     // Para crear un certificado digital en la CLI:
     //  openssl req -nodes -new -x509 -keyout server.key -out server.cert
@@ -183,8 +188,8 @@ if (!process.env.NODE_ENV) {
     })
 }
 else {
-    app.listen(config.port, () => {
-        console.log('¡Servidor iniciado!');
-    });
+    https.createServer(app).listen(config.port, () => {
+        console.log(`¡Servidor iniciado en ${config.port}!`)
+    })
 }
 
