@@ -1,6 +1,6 @@
 {
-  "name": "Tienda (Ejemplo didáctico)",
-  "short_name": "Tienda",
+  "name": "Tienda PWA",
+  "short_name": "TiendaPWA",
   "theme_color": "lightblue",
   "background_color": "lightblue",
   "display": "standalone",

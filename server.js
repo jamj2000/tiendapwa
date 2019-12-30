@@ -27,20 +27,20 @@ const authRoutes = require('./authRoutes');
 
 // // --- CONEXIÓN A BASE DATOS
 mongoose.connect(config.db_uri, { useNewUrlParser: true })
-  .then(db => console.log('Conexión correcta a la BD'))
-  .catch(err => console.log('Error en la conexión a la BD'));
+    .then(db => console.log('Conexión correcta a la BD'))
+    .catch(err => console.log('Error en la conexión a la BD'));
 
+app.use(cors());                // Permitimos CORS para todos los origenes 
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
-app.use(express.static(path.join(__dirname , 'public'))); // Archivos estáticos
+
+
+app.use(express.static(path.join(__dirname, 'public'))); // Archivos estáticos
 // app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.json());                        // Content-type: application/json
 app.use(express.urlencoded({ extended: true }));  // Content-type: application/x-www-form-urlencoded
 
-
-
-app.use(cors());                // Permitimos CORS para todos los origenes 
 
 app.use(session({
     store: new SQLiteStore,
@@ -60,6 +60,8 @@ app.use('/api', apiRoutes);     // Rutas de API
 app.use('/auth', authRoutes);   // Rutas de Autenticación
 
 
+
+
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
@@ -70,7 +72,7 @@ passport.use(new FacebookStrategy({
     clientSecret: 'cf1f07cbe85af8a9c83aa01021715c56',
     callbackURL: `https://${config.url}/auth/facebook/callback`
 },
-    (accessToken, refreshToken, profile, done) => done(null, profile)    
+    (accessToken, refreshToken, profile, done) => done(null, profile)
 ));
 
 // GOOGLE
@@ -162,15 +164,13 @@ app.get('/perfil', isUserAuthenticated, (req, res) => {
 // 404: No encontrado. Debe ser la última ruta
 // app.get( (req,res) => res.status(404).sendFile('404.png'));
 
-
 // Para redirigir trafico HTTP a HTTPS
-app.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https')
-        res.redirect(`https://${req.header('host')}${req.url}`);
-    else
-        next();
-});
-
+// app.use((req, res, next) => {
+//     if (req.header('x-forwarded-proto') !== 'https')
+//         res.redirect(`https://${req.header('host')}${req.url}`);
+//     else
+//         next();
+// });
 
 if (!process.env.NODE_ENV) {
     // Para crear un certificado digital en la CLI:
