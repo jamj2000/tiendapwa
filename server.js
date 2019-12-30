@@ -21,6 +21,9 @@ const login = require('connect-ensure-login');
 
 const app = express();
 
+const config = require('./config');
+const apiRoutes = require('./apiRoutes');
+const authRoutes = require('./authRoutes');
 
 // // --- CONEXIÓN A BASE DATOS
 mongoose.connect(config.db_uri, { useNewUrlParser: true })
@@ -34,10 +37,6 @@ app.use(express.static(path.join(__dirname , 'public'))); // Archivos estáticos
 // app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.json());                        // Content-type: application/json
 app.use(express.urlencoded({ extended: true }));  // Content-type: application/x-www-form-urlencoded
-
-const config = require('./config');
-const apiRoutes = require('./apiRoutes');
-const authRoutes = require('./authRoutes');
 
 
 
