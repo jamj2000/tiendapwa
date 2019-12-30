@@ -14,9 +14,6 @@
     transition: 0.3s;
     padding: 10px;
     margin: 10px;
-   /*  width: 380px;
-    min-width: 380px; 
-    max-width: 400px; */
   }
 
   .card:hover {
