@@ -188,8 +188,9 @@ if (!process.env.NODE_ENV) {
     })
 }
 else {
-    https.createServer(app).listen(config.port, () => {
-        console.log(`¡Servidor iniciado en ${config.port}!`)
-    })
+    // https.createServer(app).listen(config.port, () => {
+    //     console.log(`¡Servidor iniciado en ${config.port}!`)
+    // })
+    app.listen(config.port, () => console.log(`¡Servidor iniciado en ${config.port}`));
 }
 
