@@ -1,11 +1,15 @@
 <script>
   function popup() {
     window.open(
-      "https://127.0.0.1:3000/auth/google",
+      "/auth/google",
       "Sign In",
       "width=985,height=735"
     );
   }
+// https://stackoverflow.com/questions/9276086/popup-window-to-return-data-to-parent-on-close
+//   function HandlePopupResult(result) {
+//     alert("result of popup is: " + result);
+// }
 </script>
 
 <style>

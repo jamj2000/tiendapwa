@@ -1,24 +1,43 @@
-<p>
-    PROVEEDOR: <strong><%= user.provider %></strong><br />
-    ID: <%= user.id %><br />
-    Firstname: <%= user.givenName %><br />
+<html>
+
+<head>
+    <style>
+        body {
+            padding: 50px;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Inicio de sesión correcto</h1>
+
+    <h3>Los datos de su perfil son:</h3>
+    <p>
+        <% if (user.photos) { %>
+        PHOTO: <img src="<%= user.photos[0].value %>" /><br />
+        <% } %>
+        ID: <%= user.id %><br />
+        <!-- Firstname: <%= user.givenName %><br />
     Middlename: <%= user.middleName %><br />
-    Lastname: <%= user.familyName %><br />
+    Lastname: <%= user.familyName %><br /> -->
 
-    Name: <%= user.displayName %><br />
-    <% if (user.phoneNumber) { %>
-    PhoneNumber: <%= user.phoneNumber.value %><br />
-    <% } %>
-    <% if (user.photoURL) { %>
-    PhotoURL: <%= user.photoURL.value %><br />
-    <% } %>
-    <% if (user.emails) { %>
-    Email: <%= user.emails[0].value %><br />
-    <% } %>
-    <% if (user.photos) { %>
-    Photo: <img src="<%= user.photos[0].value %>" /><br />
-    <% } %>
+        NAME: <%= user.displayName %><br />
+        <% if (user.phoneNumber) { %>
+        PhoneNumber: <%= user.phoneNumber.value %><br />
+        <% } %>
+        <% if (user.photoURL) { %>
+        PhotoURL: <%= user.photoURL.value %><br />
+        <% } %>
+        <% if (user.emails) { %>
+        EMAIL: <%= user.emails[0].value %><br />
+        <% } %>
+        PROVEEDOR: <strong><%= user.provider %></strong><br />
 
 
-</p>
-<a href="/">Volver a página de inicio</a>
+    </p>
+    <h4>Ya puede cerrar está ventana.</h4>
+    <button onclick="window.close()">Cerrar </button>
+
+</body>
+
+</html>

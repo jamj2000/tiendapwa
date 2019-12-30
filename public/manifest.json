@@ -1,8 +1,8 @@
 {
   "name": "Tienda PWA",
   "short_name": "TiendaPWA",
-  "theme_color": "lightblue",
-  "background_color": "lightblue",
+  "theme_color": "#fdebc9",
+  "background_color": "#fdebc9",
   "display": "standalone",
   "Scope": "/",
   "start_url": "/",

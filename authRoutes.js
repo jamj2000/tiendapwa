@@ -29,7 +29,7 @@ router.get('/google',
 
 router.get('/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/',
+        successRedirect: '/perfil',
         failureRedirect: '/auth/google'
     }));
 
