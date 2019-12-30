@@ -20,12 +20,10 @@ const login = require('connect-ensure-login');
 
 
 const app = express();
-// // Para redirigir trafico HTTP a HTTPS
-// app.get('*', (req, res) => res.redirect('https://' + req.headers.host + req.url) );
 
-// Para redirigir trafico HTTP a HTTPS
+// Para redirigir trafico no local HTTP a HTTPS
 app.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https')
+    if (req.header('x-forwarded-proto') !== 'https' && process.env.PORT )
         res.redirect('https://' + req.headers.host + req.url)
     else
         next();
@@ -40,14 +38,13 @@ mongoose.connect(config.db_uri, { useNewUrlParser: true })
     .then(db => console.log('Conexión correcta a la BD'))
     .catch(err => console.log('Error en la conexión a la BD'));
 
+
 app.use(cors());                // Permitimos CORS para todos los origenes 
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
 
 
-
 app.use(express.static(path.join(__dirname, 'public'))); // Archivos estáticos
-// app.use(express.static(path.join(__dirname, 'assets')));
 app.use(express.json());                        // Content-type: application/json
 app.use(express.urlencoded({ extended: true }));  // Content-type: application/x-www-form-urlencoded
 
@@ -68,8 +65,6 @@ app.use(passport.session());    // Used to persist login sessions
 // Rutas
 app.use('/api', apiRoutes);     // Rutas de API
 app.use('/auth', authRoutes);   // Rutas de Autenticación
-
-
 
 
 passport.serializeUser((user, done) => done(null, user));
@@ -176,9 +171,6 @@ app.get('/perfil', isUserAuthenticated, (req, res) => {
 
 
 
-
-
-
 if (!process.env.NODE_ENV) {
     // Para crear un certificado digital en la CLI:
     //  openssl req -nodes -new -x509 -keyout server.key -out server.cert
@@ -186,7 +178,7 @@ if (!process.env.NODE_ENV) {
         key: fs.readFileSync('server.key'),
         cert: fs.readFileSync('server.cert')
     }, app).listen(config.port, () => {
-        console.log(`¡Servidor iniciado en ${config.port}! Ir a https://localhost:${config.port}/`)
+        console.log(`¡Servidor iniciado en ${config.port}!`)
     })
 }
 else {
