@@ -1,6 +1,6 @@
 // CONSTANTES
-export const urlArticulos = 'https://tiendaw.herokuapp.com/api/articulos/';
-export const urlClientes = 'https://tiendaw.herokuapp.com/api/clientes/';
+export const urlArticulos = 'https://tiendapwa.herokuapp.com/api/articulos/';
+export const urlClientes = 'https://tiendapwa.herokuapp.com/api/clientes/';
 
 
 // OPERACIONES CRUD

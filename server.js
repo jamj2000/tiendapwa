@@ -19,18 +19,13 @@ const GithubStrategy = require('passport-github').Strategy;
 const login = require('connect-ensure-login');
 
 
-// const statusMonitor = require('express-status-monitor')();
 const app = express();
 
 
-
-
-// app.use(statusMonitor);
-
 // // --- CONEXIÓN A BASE DATOS
-// mongoose.connect(config.db_uri, { useNewUrlParser: true })
-//   .then(db => console.log('Conexión correcta a la BD'))
-//   .catch(err => console.log('Error en la conexión a la BD'));
+mongoose.connect(config.db_uri, { useNewUrlParser: true })
+  .then(db => console.log('Conexión correcta a la BD'))
+  .catch(err => console.log('Error en la conexión a la BD'));
 
 app.set("views", path.resolve(__dirname, "views"));
 app.set("view engine", "ejs");
