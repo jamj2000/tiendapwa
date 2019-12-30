@@ -1,0 +1,24 @@
+<p>
+    PROVEEDOR: <strong><%= user.provider %></strong><br />
+    ID: <%= user.id %><br />
+    Firstname: <%= user.givenName %><br />
+    Middlename: <%= user.middleName %><br />
+    Lastname: <%= user.familyName %><br />
+
+    Name: <%= user.displayName %><br />
+    <% if (user.phoneNumber) { %>
+    PhoneNumber: <%= user.phoneNumber.value %><br />
+    <% } %>
+    <% if (user.photoURL) { %>
+    PhotoURL: <%= user.photoURL.value %><br />
+    <% } %>
+    <% if (user.emails) { %>
+    Email: <%= user.emails[0].value %><br />
+    <% } %>
+    <% if (user.photos) { %>
+    Photo: <img src="<%= user.photos[0].value %>" /><br />
+    <% } %>
+
+
+</p>
+<a href="/">Volver a página de inicio</a>

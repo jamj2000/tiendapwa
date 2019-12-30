@@ -1,0 +1,21 @@
+<script>
+  import { Route } from "svelte-routing";
+  import Inicio from "./Inicio.svelte";
+  import Articulos from "./Articulos.svelte";
+  import Clientes from "./Clientes.svelte";
+  import SignIn from "./SignIn.svelte";
+</script>
+
+<style>
+  main {
+    padding: 20px;
+    padding-top: 50px;
+  }
+</style>
+
+<main>
+  <Route path="/" component={Inicio} />
+  <Route path="/articulos" component={Articulos} />
+  <Route path="/clientes" component={Clientes} />
+  <Route path="/signin" component={SignIn} />
+</main>

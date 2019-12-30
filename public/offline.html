@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Tienda (Ejemplo didáctico)</title>
+
+
+
+    <style>
+        body {
+            background: #6699dc;
+            margin: 0;
+            padding: 0;
+            text-align: center;
+            font-family: Arial, Helvetica, sans-serif;
+            font-size: 4vw;
+        }
+
+        img {
+            max-width: 40%;
+            height: auto;
+            display: block;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+
+</head>
+
+
+<body>
+    <h4>No tenemos conexión a Internet.</h4>
+    <h4>Compruebe la conectividad.</h4>
+    <img src="./images/icons/icon-512x512.png" alt="logo" />
+    <br />
+    <h3>Tienda (Ejemplo didáctico)</h3>
+    <br />
+    <script>
+        window.addEventListener(
+            "online",
+            () => (window.location.href = "/")
+        );
+    </script>
+</body>
+
+</html>
