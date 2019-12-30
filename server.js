@@ -20,8 +20,16 @@ const login = require('connect-ensure-login');
 
 
 const app = express();
+// // Para redirigir trafico HTTP a HTTPS
+// app.get('*', (req, res) => res.redirect('https://' + req.headers.host + req.url) );
+
 // Para redirigir trafico HTTP a HTTPS
-app.get('*', (req, res) => res.redirect('https://' + req.headers.host + req.url) );
+app.use((req, res, next) => {
+    if (req.header('x-forwarded-proto') !== 'https')
+        res.redirect('https://' + req.headers.host + req.url)
+    else
+        next();
+});
 
 const config = require('./config');
 const apiRoutes = require('./apiRoutes');
@@ -166,13 +174,6 @@ app.get('/perfil', isUserAuthenticated, (req, res) => {
 // 404: No encontrado. Debe ser la última ruta
 // app.get( (req,res) => res.status(404).sendFile('404.png'));
 
-// Para redirigir trafico HTTP a HTTPS
-// app.use((req, res, next) => {
-//     if (req.header('x-forwarded-proto') !== 'https')
-//         res.redirect(`https://${req.header('host')}${req.url}`);
-//     else
-//         next();
-// });
 
 
 
@@ -189,9 +190,6 @@ if (!process.env.NODE_ENV) {
     })
 }
 else {
-    // https.createServer(app).listen(config.port, () => {
-    //     console.log(`¡Servidor iniciado en ${config.port}!`)
-    // })
     app.listen(config.port, () => console.log(`¡Servidor iniciado en ${config.port}`));
 }
 
