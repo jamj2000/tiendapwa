@@ -3,7 +3,7 @@
 
 
 // Nombre de la caché
-const CACHE_NAME = 'tiendapwa-v4';
+const CACHE_NAME = 'tiendapwa-v5';
 
 // Archivos necesarios para el funcionamiento offline
 const CACHE_ASSETS = [
@@ -14,6 +14,8 @@ const CACHE_ASSETS = [
   '/global.css',
   '/build/bundle.css',
   '/build/bundle.js',
+  '/build/bundle.css.map',
+  '/build/bundle.js.map',
   '/images/icons/icon-512x512.png',
   '/assets/menu.svg',
   '/assets/cerrar.svg'
@@ -75,6 +77,7 @@ self.addEventListener('fetch', function (e) {
     || e.request.url.indexOf('/perfil') !== -1 ) {
     return false;
   }
+
   e.respondWith(
     fetch(e.request)
       .catch(() => {

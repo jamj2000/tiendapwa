@@ -34,11 +34,10 @@
     "svelte": "^3.0.0"
   },
   "dependencies": {
-    "sirv-cli": "^0.4.4",
-    "svelte-routing": "^1.4.0",
     "connect-ensure-login": "^0.1.1",
     "connect-sqlite3": "^0.9.11",
     "cors": "^2.8.5",
+    "dotenv": "^8.2.0",
     "ejs": "^3.0.1",
     "express": "^4.17.1",
     "express-session": "^1.17.0",
@@ -49,6 +48,8 @@
     "passport-github": "^1.1.0",
     "passport-google-oauth20": "^2.0.0",
     "passport-linkedin-oauth2": "^2.0.0",
-    "passport-pinterest": "^1.0.0"
+    "passport-pinterest": "^1.0.0",
+    "sirv-cli": "^0.4.4",
+    "svelte-routing": "^1.4.0"
   }
 }
