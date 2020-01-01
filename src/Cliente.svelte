@@ -3,7 +3,7 @@
   import { urlClientes as URL } from "./config.js";
 
   export let cliente = {};
-  export let fnInsertar = () => {};
+
 
 
 </script>

@@ -8,9 +8,6 @@ const PinterestStrategy = require('passport-pinterest').Strategy;
 const GithubStrategy = require('passport-github').Strategy;
 
 
-// app.use(passport.initialize()); // Used to initialize passport
-// app.use(passport.session());    // Used to persist login sessions
-
 passport.serializeUser((user, done) => done(null, user));
 passport.deserializeUser((user, done) => done(null, user));
 
