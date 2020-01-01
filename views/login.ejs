@@ -1,29 +1,34 @@
-<html>
+<script>
+  let texto;
 
-<head>
-    <link href="/css/demo.css" rel="stylesheet" type="text/css">
-    <link href="/css/buttons-si.css" rel="stylesheet" type="text/css">
+  function fetchHTML() {
+    fetch("/auth/google")
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        console.log(text);
+        document.getElementById('texto').innerHTML = text;
+      });
+  }
 
-</head>
+  const g = document.getElementById('g')
+g.addEventListener('click', fetchHTML); 
 
-<body>
-    <h1>Iniciar sesión</h1>
+function popup(proveedor) {
+    window.open("/auth/" + proveedor, "Sign In", "width=985,height=735");
+  }
+</script>
 
-    <button class="btn-si btn-google"><a href="/auth/google">Iniciar con Google</a></button>
-    <button class="btn-si btn-facebook"><a href="/auth/facebook">Iniciar con Facebook</a></button>
-    <button class="btn-si btn-github"><a href="/auth/github">Iniciar con GitHub </a></button>
-    <button class="btn-si btn-linkedin"><a href="/auth/linkedin">Iniciar con LinkedIn</a> </button>
-    <button class="btn-si btn-pinterest"><a href="/auth/pinterest">Iniciar con Pinterest</a> </button>
-    <button class="btn-si btn-tumblr"><a href="/auth/tumblr">Iniciar con Tumblr</a> </button>
+<div>
+    <h1>Iniciar sesión Login</h1>
 
-    <!-- <button class="btn-si btn-instagram"><a href="/auth/instagram">Iniciar con Instagram </a></button> -->
-    <!-- <button class="btn-si btn-twitter">Sign in with Twitter </button>
-    <button class="btn-si btn-microsoft">Sign in with Microsoft </button>
-    <button class="btn-si btn-foursquare">Sign in with Foursquare </button>
-    <button class="btn-si btn-evernote">Sign in with Evernote </button>
-    <button class="btn-si btn-dropbox">Sign in with Dropbox </button>
-    <button class="btn-si btn-bitbucket">Sign in with Bitbucket </button> -->
+    <button id="g" class="btn-si btn-google" onclick='window.open("/auth/google", "Sign In", "width=985,height=735")'></button>
+    <button class="btn-si btn-facebook" onclick='window.open("/auth/facebook", "Sign In", "width=985,height=735")'></button>
+    <button class="btn-si btn-linkedin" onclick='window.open("/auth/linkedin", "Sign In", "width=985,height=735")'></button>
+    <button class="btn-si btn-pinterest" onclick='window.open("/auth/pinterest", "Sign In", "width=985,height=735")'></button>
+    <button class="btn-si btn-github" onclick='window.open("/auth/github", "Sign In", "width=985,height=735")'></button>
 
-</body>
+</div>
+<div id="texto"></div>
 
-</html>

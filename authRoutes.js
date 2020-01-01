@@ -17,7 +17,7 @@ router.get('/facebook',
 
 router.get('/facebook/callback',
     passport.authenticate('facebook', {
-        successRedirect: '/',
+        successRedirect: '/perfil',
         failureRedirect: '/auth/facebook'
     }));
 
@@ -34,22 +34,13 @@ router.get('/google/callback',
     }));
 
 
-router.get('/github',
-    passport.authenticate('github'));
-
-router.get('/github/callback',
-    passport.authenticate('github', {
-        successRedirect: '/',
-        failureRedirect: '/auth/github'
-    }));
-
 
 router.get('/linkedin',
     passport.authenticate('linkedin'));
 
 router.get('/linkedin/callback',
     passport.authenticate('linkedin', {
-        successRedirect: '/',
+        successRedirect: '/perfil',
         failureRedirect: '/auth/linkedin'
     }));
 
@@ -59,35 +50,31 @@ router.get('/pinterest',
 
 router.get('/pinterest/callback',
     passport.authenticate('pinterest', {
-        successRedirect: '/',
+        successRedirect: '/perfil',
         failureRedirect: '/auth/pinterest'
     }));
 
-router.get('/auth/tumblr',
-    passport.authenticate('tumblr'));
+router.get('/github',
+    passport.authenticate('github'));
 
-router.get('/auth/tumblr/callback',
-    passport.authenticate('tumblr', {
-        successRedirect: '/',
-        failureRedirect: '/auth/tumbr'
+router.get('/github/callback',
+    passport.authenticate('github', {
+        successRedirect: '/perfil',
+        failureRedirect: '/auth/github'
     }));
 
-// router.get('/instagram',
-//     passport.authenticate('instagram'));
-
-// router.get('/instagram/callback',
-//     passport.authenticate('instagram', {
-//         successRedirect: '/',
-//         failureRedirect: '/auth/instagram'
-//     }));
-
-
+    
+    
 // Logout route
 router.get('/logout', (req, res) => {
-    req.logout();
-    res.redirect('/');
+    req.session.destroy(function() {
+        res.clearCookie('connect.sid', { path: '/' }); 
+        res.send('OK', 200); // tell the client everything went well
+    });
+    // req.logout();
+    // res.redirect('/');
 });
 
 
-router.get( (req,res) => res.status(404).send('Página no encontrada'));
+// router.get((req, res) => res.status(404).send('Página no encontrada'));
 module.exports = router;

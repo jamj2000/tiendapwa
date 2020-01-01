@@ -4,6 +4,7 @@
   import Articulos from "./Articulos.svelte";
   import Clientes from "./Clientes.svelte";
   import SignIn from "./SignIn.svelte";
+  import SignOut from "./SignOut.svelte";
 </script>
 
 <style>
@@ -18,4 +19,5 @@
   <Route path="/articulos" component={Articulos} />
   <Route path="/clientes" component={Clientes} />
   <Route path="/signin" component={SignIn} />
+  <Route path="/signout" component={SignOut} />
 </main>

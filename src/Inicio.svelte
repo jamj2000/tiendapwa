@@ -15,8 +15,8 @@
   }
 </style>
 
-<h1>Tiendas</h1>
-<p><strong>Ejemplo didáctico: PWA y Fullstack MEN (MongoDB + Express + NodeJS)</strong></p>
+<h1>Tienda PWA</h1>
+<p><small>Fullstack WepApp - MEN (MongoDB + Express + NodeJS)</small></p>
 <p>Esta SPA (Single Page Application) ofrece 3 opciones:</p>
 <div>
   <ul>
@@ -33,4 +33,5 @@
       : Permite realizar operaciones CRUD sobre los clientes de la BD.
     </li>
   </ul>
+  <p>Añadido soporte para OAuth.</p>
 </div>

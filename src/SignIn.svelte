@@ -1,153 +1,36 @@
 <script>
-  function popup() {
-    window.open(
-      "/auth/google",
-      "Sign In",
-      "width=985,height=735"
-    );
+  import { onMount } from 'svelte';
+
+  let texto = '';
+
+  function perfil() {
+    fetch("/perfil")
+      .then(function(response) {
+        return response.text();
+      })
+      .then(function(text) {
+        texto = text;
+      });
   }
-// https://stackoverflow.com/questions/9276086/popup-window-to-return-data-to-parent-on-close
-//   function HandlePopupResult(result) {
-//     alert("result of popup is: " + result);
-// }
+  function popup(proveedor) {
+    window.open("/auth/" + proveedor, "Sign In", "width=985,height=735");
+  }
+
+onMount (perfil);
+
 </script>
 
-<style>
-  #signin {
-    background: #a8b1d1;
-    color: #ffffff;
-    margin: 0 auto;
-    text-align: center;
-    width: 50%;
-    padding: 50px;
-  }
+{#if texto != ''}
+  {@html texto}
+{:else}
+  <div id="signin">
+    <h1>Iniciar sesión</h1>
 
-  button {
-    margin: 6px;
-    text-decoration: none;
-  }
-  h1 {
-    font-weight: 100;
-    padding-bottom: 40px;
-  }
+    <button class="btn-si btn-google" on:click={() => popup('google')} />
+    <button class="btn-si btn-facebook" on:click={() => popup('facebook')} />
+    <button class="btn-si btn-linkedin" on:click={() => popup('linkedin')} />
+    <button class="btn-si btn-pinterest" on:click={() => popup('pinterest')} />
+    <button class="btn-si btn-github" on:click={() => popup('github')} />
 
-  /* Social Buttons Style */
-  .btn-si {
-    background-position: 1em;
-    background-repeat: no-repeat;
-    background-size: 2em;
-    border-radius: 0.5em;
-    display: inline-block;
-    border: none;
-    outline: none;
-    color: white;
-    cursor: pointer;
-    font-size: 1em;
-    height: 4em;
-    line-height: 1em;
-    padding: 0 2em 0 4em;
-    text-decoration: none;
-    transition: all 0.5s;
-  }
-
-  .btn-si::-moz-focus-inner {
-    border: 0;
-  }
-
-  .btn-si:hover {
-    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
-      0 0.5em 10px 0 rgba(0, 0, 0, 0.19);
-  }
-
-  .btn-google {
-    background-color: #c0402f;
-    background-image: url("/assets/google.svg");
-  }
-  .btn-google:hover {
-    background-color: #632119;
-  }
-  .btn-google:active {
-    background-color: #3b100b;
-  }
-
-  .btn-facebook {
-    background-color:  #4c70ba;
-    background-image: url("/assets/facebook.svg");
-  }
-  .btn-facebook:hover {
-    background-color: #3b5998;
-  }
-  .btn-facebook:active {
-    background-color: #2d4373;
-  }
-
-  .btn-github {
-    background-color:  #444444;
-    background-image: url("/assets/github.svg");
-  }
-  .btn-github:hover {
-    background-color:#2a2a2a;
-  }
-  .btn-github:active {
-    background-color: #101010;
-  }
-
-  .btn-linkedin {
-    background-color: #0e7ad3;
-    background-image: url("/assets/linkedin.svg");
-  }
-  .btn-linkedin:hover {
-    background-color: #0b5ea3;
-  }
-  .btn-linkedin:active {
-    background-color: #084273;
-  }
-
-  .btn-pinterest {
-    background-color: #535353;
-    background-image: url("/assets/pinterest.svg");
-  }
-  .btn-pinterest:hover {
-    background-color: #222121;
-  }
-  .btn-pinterest:active {
-    background-color: #7a7575;
-  }
-
-  .btn-google::after {
-    content: " Iniciar con Google";
-  }
-
-  .btn-facebook::after {
-    content: " Iniciar con Facebook";
-  }
-
-  .btn-linkedin::after {
-    content: " Iniciar con Linkedin";
-  }
-
-  .btn-pinterest::after {
-    content: " Iniciar con Pinterest";
-  }
-
-  .btn-github::after {
-    content: " Iniciar con Github";
-  }
-
-  @media (max-width: 500px) {
-    .btn-si::after {
-      content: none;
-    }
-  }
-</style>
-
-<div id="signin">
-  <h1>Iniciar sesión</h1>
-
-  <button class="btn-si btn-google" on:click={popup} />
-  <button class="btn-si btn-facebook" />
-  <button class="btn-si btn-linkedin" />
-  <button class="btn-si btn-pinterest" />
-  <button class="btn-si btn-github" />
-
-</div>
+  </div>
+{/if}

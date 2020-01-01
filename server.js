@@ -11,11 +11,11 @@ const session = require('express-session');
 const SQLiteStore = require('connect-sqlite3')(session);
 const mongoose = require('mongoose');
 const passport = require('passport');
-const GoogleStrategy = require('passport-google-oauth20').Strategy;
-const FacebookStrategy = require('passport-facebook').Strategy;
-const LinkedinStrategy = require('passport-linkedin-oauth2').Strategy;
-const PinterestStrategy = require('passport-pinterest').Strategy;
-const GithubStrategy = require('passport-github').Strategy;
+// const GoogleStrategy = require('passport-google-oauth20').Strategy;
+// const FacebookStrategy = require('passport-facebook').Strategy;
+// const LinkedinStrategy = require('passport-linkedin-oauth2').Strategy;
+// const PinterestStrategy = require('passport-pinterest').Strategy;
+// const GithubStrategy = require('passport-github').Strategy;
 const login = require('connect-ensure-login');
 
 
@@ -23,7 +23,7 @@ const app = express();
 
 // Para redirigir trafico no local HTTP a HTTPS
 app.use((req, res, next) => {
-    if (req.header('x-forwarded-proto') !== 'https' && process.env.PORT )
+    if (req.header('x-forwarded-proto') !== 'https' && process.env.PORT)
         res.redirect('https://' + req.headers.host + req.url)
     else
         next();
@@ -54,7 +54,7 @@ app.use(session({
     secret: 'your secret',
     resave: true,
     saveUninitialized: true,
-    cookie: { secure: true, maxAge: 7 * 24 * 60 * 60 * 1000 } // 1 week
+    cookie: { secure: true } // , maxAge: 7 * 24 * 60 * 60 * 1000 // 1 week
 }));
 
 app.use(morgan('dev'));
@@ -66,84 +66,15 @@ app.use(passport.session());    // Used to persist login sessions
 app.use('/api', apiRoutes);     // Rutas de API
 app.use('/auth', authRoutes);   // Rutas de Autenticación
 
-
-passport.serializeUser((user, done) => done(null, user));
-passport.deserializeUser((user, done) => done(null, user));
-
-// FACEBOOK
-// https://developers.facebook.com/
-passport.use(new FacebookStrategy({
-    clientID: '468818343833029',
-    clientSecret: 'cf1f07cbe85af8a9c83aa01021715c56',
-    callbackURL: `https://${config.url}/auth/facebook/callback`
-},
-    (accessToken, refreshToken, profile, done) => done(null, profile)
-));
-
-// GOOGLE
-// https://console.developers.google.com/
-passport.use(new GoogleStrategy({
-    clientID: '1087953600624-hbgsir1rrv7i9pim5q8ogdar94sni6o5.apps.googleusercontent.com',
-    clientSecret: 'hf68TsjIBhiPCmKuTK4gbNv1',
-    callbackURL: `https://${config.url}/auth/google/callback`
-},
-    (accessToken, refreshToken, profile, done) => {
-        done(null, profile); // passes the profile data to serializeUser
-    }
-));
-
-// LINKEDIN
-// https://www.linkedin.com/developers/
-passport.use(new LinkedinStrategy({
-    clientID: '86f1ethpsdabjd',
-    clientSecret: 'bQccU9xmSaOY0YxK',
-    callbackURL: `https://${config.url}/auth/linkedin/callback`,
-    scope: ['r_emailaddress', 'r_liteprofile'],
-    state: true
-},
-    (accessToken, refreshToken, profile, done) => {
-        process.nextTick(function () {
-            done(null, profile); // passes the profile data to serializeUser
-        });
-    }
-));
-
-// PINTEREST
-passport.use(new PinterestStrategy({
-    clientID: '5074457384024320231',
-    clientSecret: '3bec65dddc6760f239398826af7e87419012692671f719683e5849f5229f5e96',
-    callbackURL: `https://${config.url}/auth/pinterest/callback`,
-    scope: ['read_public', 'read_relationships'],
-    state: true
-},
-    (accessToken, refreshToken, profile, done) => {
-        process.nextTick(function () {
-            done(null, profile); // passes the profile data to serializeUser
-        });
-    }
-));
-
-// GITHUB
-// https://github.com/settings/applications/new
-// Diferentes clientID y clientSecret para localhost e internet
-// Estos clientID y clientSecret son para internet
-passport.use(new GithubStrategy({
-    clientID: 'f5c3c21945a408bff554',
-    clientSecret: '6508766f38c30ab6cbd249367f68f9c696cc3ad4',
-    callbackURL: `https://${config.url}/auth/github/callback`
-},
-    (accessToken, refreshToken, profile, done) => {
-        done(null, profile); // passes the profile data to serializeUser
-    }
-));
-
+require('./passport.js');
 
 // Middleware to check if the user is authenticated
 function isUserAuthenticated(req, res, next) {
     if (req.user) {
         next();
     } else {
-        res.send('¡Debes iniciar sesión! <br><a href="/">Iniciar sesión</a>');
+        // res.render('login.ejs');
+        res.send();
     }
 }
 
@@ -162,6 +93,17 @@ app.get('/secret', isUserAuthenticated, (req, res) => {
 app.get('/perfil', isUserAuthenticated, (req, res) => {
     res.render('perfil', { user: req.user });
 });
+
+app.get('/logout', (req, res) => {
+    res.render('logout', { user: req.user });
+});
+
+app.get('*', function (req, res) {
+    // res.send('what???', 404);
+    res.status(404).send('what???<br><a href="/">Inicio</a>');
+});
+
+
 
 
 // app.get('/status', login.ensureLoggedIn('/auth/login'), statusMonitor.pageRoute);

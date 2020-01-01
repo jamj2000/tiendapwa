@@ -1,0 +1,126 @@
+#signin {
+    background: #a8b1d1;
+    color: #ffffff;
+    margin: 0 auto;
+    text-align: center;
+    width: 50%;
+    padding: 50px;
+  }
+
+  button {
+    margin: 6px;
+    text-decoration: none;
+  }
+  h1 {
+    font-weight: 100;
+    padding-bottom: 40px;
+  }
+
+  /* Social Buttons Style */
+  .btn-si {
+    background-position: 1em;
+    background-repeat: no-repeat;
+    background-size: 2em;
+    border-radius: 0.5em;
+    display: inline-block;
+    border: none;
+    outline: none;
+    color: white;
+    cursor: pointer;
+    font-size: 1em;
+    height: 4em;
+    line-height: 1em;
+    padding: 0 2em 0 4em;
+    text-decoration: none;
+    transition: all 0.5s;
+  }
+
+  .btn-si::-moz-focus-inner {
+    border: 0;
+  }
+
+  .btn-si:hover {
+    box-shadow: 0 2px 6px 0 rgba(0, 0, 0, 0.2),
+      0 0.5em 10px 0 rgba(0, 0, 0, 0.19);
+  }
+
+  .btn-google {
+    background-color: #c0402f;
+    background-image: url("/assets/google.svg");
+  }
+  .btn-google:hover {
+    background-color: #632119;
+  }
+  .btn-google:active {
+    background-color: #3b100b;
+  }
+
+  .btn-facebook {
+    background-color: #4c70ba;
+    background-image: url("/assets/facebook.svg");
+  }
+  .btn-facebook:hover {
+    background-color: #3b5998;
+  }
+  .btn-facebook:active {
+    background-color: #2d4373;
+  }
+
+  .btn-github {
+    background-color: #444444;
+    background-image: url("/assets/github.svg");
+  }
+  .btn-github:hover {
+    background-color: #2a2a2a;
+  }
+  .btn-github:active {
+    background-color: #101010;
+  }
+
+  .btn-linkedin {
+    background-color: #0e7ad3;
+    background-image: url("/assets/linkedin.svg");
+  }
+  .btn-linkedin:hover {
+    background-color: #0b5ea3;
+  }
+  .btn-linkedin:active {
+    background-color: #084273;
+  }
+
+  .btn-pinterest {
+    background-color: #535353;
+    background-image: url("/assets/pinterest.svg");
+  }
+  .btn-pinterest:hover {
+    background-color: #222121;
+  }
+  .btn-pinterest:active {
+    background-color: #7a7575;
+  }
+
+  .btn-google::after {
+    content: " Iniciar con Google";
+  }
+
+  .btn-facebook::after {
+    content: " Iniciar con Facebook";
+  }
+
+  .btn-linkedin::after {
+    content: " Iniciar con Linkedin";
+  }
+
+  .btn-pinterest::after {
+    content: " Iniciar con Pinterest";
+  }
+
+  .btn-github::after {
+    content: " Iniciar con Github";
+  }
+
+  @media (max-width: 500px) {
+    .btn-si::after {
+      content: none;
+    }
+  }

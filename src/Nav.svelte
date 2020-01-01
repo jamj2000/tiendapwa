@@ -130,6 +130,9 @@
     <li class="item active button">
       <Link to="/signin">🔑 Iniciar sesión</Link>
     </li>
+        <li class="item active button">
+      <Link to="/signout">🔒 Cerrar sesión</Link>
+    </li>
     <!-- <li class="item active button secondary">
       <Link to="/">Sign Up</Link>
     </li> -->

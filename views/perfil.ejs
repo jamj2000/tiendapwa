@@ -1,26 +1,12 @@
-<html>
+<div id="pefil" style="padding: 50px;">
+    <h1>Sesión iniciada</h1>
 
-<head>
-    <style>
-        body {
-            padding: 50px;
-        }
-    </style>
-</head>
-
-<body>
-    <h1>Inicio de sesión correcto</h1>
-
-    <h3>Los datos de su perfil son:</h3>
-    <p>
+    <h3>Perfil de usuario</h3>
+    <div>
         <% if (user.photos) { %>
-        PHOTO: <img src="<%= user.photos[0].value %>" /><br />
+        <img src="<%= user.photos[0].value %>" /><br />
         <% } %>
         ID: <%= user.id %><br />
-        <!-- Firstname: <%= user.givenName %><br />
-    Middlename: <%= user.middleName %><br />
-    Lastname: <%= user.familyName %><br /> -->
-
         NAME: <%= user.displayName %><br />
         <% if (user.phoneNumber) { %>
         PhoneNumber: <%= user.phoneNumber.value %><br />
@@ -31,13 +17,10 @@
         <% if (user.emails) { %>
         EMAIL: <%= user.emails[0].value %><br />
         <% } %>
-        PROVEEDOR: <strong><%= user.provider %></strong><br />
+        PROVEEDOR: <strong><%= user.provider %></strong><br /><br><br>
 
 
-    </p>
-    <h4>Ya puede cerrar está ventana.</h4>
-    <button onclick="window.close()">Cerrar </button>
+        <button onclick="window.close()">Cerrar ventana</button>
 
-</body>
-
-</html>
+    </div>
+</div>
