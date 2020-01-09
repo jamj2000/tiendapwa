@@ -6,22 +6,6 @@ const passport = require('passport');
 
 const router = express.Router();
 
-
-
-router.get('/login', (req, res) => {
-    res.render('login.ejs');
-});
-
-router.get('/facebook',
-    passport.authenticate('facebook'));
-
-router.get('/facebook/callback',
-    passport.authenticate('facebook', {
-        successRedirect: '/perfil',
-        failureRedirect: '/auth/facebook'
-    }));
-
-
 router.get('/google',
     passport.authenticate('google', {
         scope: ['profile'] // Used to specify the required data
@@ -29,10 +13,33 @@ router.get('/google',
 
 router.get('/google/callback',
     passport.authenticate('google', {
-        successRedirect: '/perfil',
+        successRedirect: '/',
         failureRedirect: '/auth/google'
     }));
 
+
+
+router.get('/login', (req, res) => {
+    res.render('login.ejs');
+});
+
+router.get('/google',
+    passport.authenticate('google'));
+
+router.get('/google/callback',
+    passport.authenticate('google', {
+        successRedirect: '/',
+        failureRedirect: '/auth/google'
+    }));
+
+router.get('/facebook',
+    passport.authenticate('facebook'));
+
+router.get('/facebook/callback',
+    passport.authenticate('facebook', {
+        successRedirect: '/',
+        failureRedirect: '/auth/facebook'
+    }));
 
 
 router.get('/linkedin',

@@ -13,7 +13,8 @@
       });
   }
   function popup(proveedor) {
-    window.open("/auth/" + proveedor, "Sign In", "width=985,height=735");
+    let w = window.open("/auth/" + proveedor, "Sign In", "width=985,height=735");
+    w.location.href = '/perfil';
   }
 
 onMount (perfil);
@@ -21,7 +22,8 @@ onMount (perfil);
 </script>
 
 {#if texto != ''}
-  {@html texto}
+  <!-- {@html texto} -->
+  Pepito grillo
 {:else}
   <div id="signin">
     <h1>Iniciar sesión</h1>

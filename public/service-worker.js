@@ -3,7 +3,7 @@
 
 
 // Nombre de la caché
-const CACHE_NAME = 'tiendapwa-v5';
+const CACHE_NAME = 'tiendapwa-v6';
 
 // Archivos necesarios para el funcionamiento offline
 const CACHE_ASSETS = [
@@ -73,8 +73,8 @@ self.addEventListener('fetch', function (e) {
   //   // Not a page navigation, bail.
   //   return; 
   // }
-  if (e.request.url.indexOf('/auth/') !== -1
-    || e.request.url.indexOf('/perfil') !== -1 ) {
+  if ((e.request.url.indexOf('/auth/') !== -1
+    || e.request.url.indexOf('/perfil') !== -1 )) {
     return false;
   }
 
