@@ -1,7 +1,7 @@
 <script>
   import Nav from "./Nav.svelte";
   import Contenido from "./Contenido.svelte";
-  import { Router } from "svelte-routing";
+  import { Router, Link, Route } from "svelte-routing";
 </script>
 
 <style>
