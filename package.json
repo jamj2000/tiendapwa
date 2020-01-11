@@ -21,7 +21,7 @@
   },
   "scripts": {
     "build": "rollup -c",
-    "dev": "rollup -c & nodemon server.js"
+    "dev": "rollup -c -w "
   },
   "devDependencies": {
     "nodemon": "^2.0.2",

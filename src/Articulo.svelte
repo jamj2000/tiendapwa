@@ -59,4 +59,5 @@
   €
   <slot name="botones" />
   <slot {articulo} />
+    <!-- nom {articulo.nombre} prec {articulo.precio} -->
 </div>

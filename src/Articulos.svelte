@@ -14,6 +14,7 @@
 
   let busqueda = "";
   let jsonData = [];
+  let articulo = {};
 
   onMount(async () => {
     const response = await fetch(URL);
@@ -38,6 +39,7 @@
   function ok() {
     OK.style.display = "block";
     setTimeout(() => (OK.style.display = "none"), 1500);
+    // console.log(jsonData);
   }
 
   function ko() {
@@ -62,21 +64,23 @@
 
 <h1>ARTÍCULOS</h1>
 <Form {handleSubmit} {handleKeyup} />
-
+<!-- Object.keys(articulo).every(key => articulo[key] !== undefined && articulo[key] !== '' -->
 <div class="container">
-  <Articulo let:articulo>
+  <Articulo bind:articulo={articulo} >
     <div slot="botones" class="botones">
       <Boton
         class="btn btn-insertar"
         on:click={() => {
-          if (Object.values(articulo).every(x => x !== null && x !== '')) {
+          <!-- console.log("hola", articulo); -->
+          if (Object.keys(articulo).length > 1 
+           && Object.values(articulo).every(x => (x !== undefined && x != ''))) {
             create(URL, articulo)
               .then(data => {
-                jsonData = [...jsonData, articulo];
-                ok();
+                jsonData = [...jsonData, data ];              
+                ok();                
               })
-              .catch(err => ko());
-          }
+              .catch(err => ko());              
+          }       
         }}>
         <span>✏️</span>
       </Boton>
