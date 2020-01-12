@@ -4,13 +4,11 @@
 
   export let tipo = "insertar"; // modificar, eliminar
   export let articulo = {};
-  export const refrescar = () => {};
 
-  let clases = "";
-  export let handler = () => {};
   const URL = getContext("URL");
+  let handler = () => {};  
+  let clases = "";
 
-  // const jsonData = getContext("jsonData");
 
   onMount(() => {
     switch (tipo) {
@@ -74,7 +72,6 @@
   function ok() {
     OK.style.display = "block";
     setTimeout(() => (OK.style.display = "none"), 1500);
-    // console.log(jsonData);
   }
 
   function ko() {
