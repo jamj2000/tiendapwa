@@ -1,7 +1,7 @@
 <script>
   import { onMount, getContext } from "svelte";
   import { jsonData } from "./store.js";
-  
+
   import Buscar from "./Buscar.svelte";
   import Articulo from "./Articulo.svelte";
   import Boton from "./Boton.svelte";
@@ -17,23 +17,11 @@
     $jsonData = data;
   });
 
-  $: regex = new RegExp(busqueda, "gi");
-  $: datos = busqueda
-    ? $jsonData.filter(element => regex.test(element.nombre))
+  $: regex = new RegExp(busqueda, "i");
+  $: datos = busqueda 
+    ? $jsonData.filter(item => regex.test(item.nombre))
     : $jsonData;
 
-  //////////////////////
-  // let promesa = refrescar(); 
-
-  // async function refrescar() {
-  //   const response = await fetch(
-  //     "https://tiendapwa.herokuapp.com/api/articulos"
-  //   );
-  //   return await response.json();
-  // }
-  // function handleClick() {
-  // 	promesa = refrescar();
-  // }
 </script>
 
 <style>
@@ -67,23 +55,3 @@
     </Articulo>
   {/each}
 </div>
-
-<!-- <button on:click={() => (promesa = refrescar())}>Refrescar</button> -->
-
-<!-- FETCH -->
-<!-- {#await promesa}
-  <p>...recuperando datos</p>
-{:then data}
-  <div class="container">
-    {#each data as articulo}
-      <Articulo {articulo}>
-        <div style="text-align: right">
-          <Boton {articulo} tipo="modificar" />
-          <Boton {articulo} tipo="eliminar" />
-        </div>
-      </Articulo>
-    {/each}
-  </div>
-{:catch error}
-  <p style="color: red">{error.message}</p>
-{/await} -->

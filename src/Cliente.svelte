@@ -1,10 +1,6 @@
 <script>
   import Boton from "./Boton.svelte";
-
   export let cliente = {};
-
-
-
 </script>
 
 <style>
@@ -51,17 +47,7 @@
 </style>
 
 <div class="card" on:click>
-
-  <!-- <p>{cliente._id}</p> -->
   <input bind:value={cliente.nombre} class="title" />
   <input bind:value={cliente.apellidos} class="title" />
-  <!-- <input
-    type="number"
-    min="0"
-    max="9999.99"
-    step=".01"
-    bind:value={articulo.precio} />
-  € -->
-  <slot name="botones" />
-  <slot {cliente} />
+  <slot />
 </div>

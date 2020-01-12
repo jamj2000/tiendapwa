@@ -29,7 +29,6 @@
   });
 
   function insertar() {
-    // console.log(promesa);
     if (
       Object.keys(articulo).length > 1 &&
       Object.values(articulo).every(x => x !== undefined && x != "")
@@ -69,12 +68,12 @@
       .catch(err => ko());
   }
 
-  function ok() {
+  let ok = () => {
     OK.style.display = "block";
     setTimeout(() => (OK.style.display = "none"), 1500);
   }
 
-  function ko() {
+  let ko = () => {
     KO.style.display = "block";
     setTimeout(() => (KO.style.display = "none"), 1500);
   }

@@ -1,46 +1,27 @@
 <script>
   import { onMount, getContext } from "svelte";
+  import { jsonData } from "./store.js";
 
   import Buscar from "./Buscar.svelte";
   import Cliente from "./Cliente.svelte";
   import Boton from "./Boton.svelte";
 
-  const URL = getContext('URL');
+  const URL = getContext("URL");
 
   let busqueda = "";
-  let jsonData = [];
+  let cliente = {};
 
   onMount(async () => {
     const response = await fetch(URL.clientes);
-    jsonData = await response.json();
+    const data = await response.json();
+    $jsonData = data;
   });
 
-  $: regex = new RegExp(busqueda, "gi");
-  $: datos = busqueda
-    ? jsonData.filter(element => regex.test(element.nombre))
-    : jsonData;
+  $: regex = new RegExp(busqueda, "i");
+  $: datos = busqueda 
+    ? $jsonData.filter(item => regex.test(item.nombre))
+    : $jsonData;
 
-  // // this se refiere al formulario
-  // function handleSubmit() {
-  //   busqueda = this.elements.buscar.value;
-  // }
-
-  // this se refiere al input
-  function handleKeyup() {
-    busqueda = this.value;
-  }
-
-  function ok() {
-    OK.style.display = "block";
-    setTimeout(() => (OK.style.display = "none"), 1500);
-  }
-
-  function ko() {
-    KO.style.display = "block";
-    setTimeout(() => (KO.style.display = "none"), 1500);
-  }
-
-  
 </script>
 
 <style>
@@ -51,32 +32,15 @@
     justify-content: left;
     flex-wrap: wrap;
   }
-
-  .botones {
-    text-align: right;
-  }
 </style>
 
-<!-- <h1>CLIENTES</h1>
-<Buscar {handleKeyup} />
+<h1>CLIENTES</h1>
+<Buscar bind:busqueda />
 
 <div class="container">
-  <Cliente let:cliente>
-    <div slot="botones" class="botones">
-      <Boton
-        class="btn btn-insertar"
-        on:click={() => {
-          if (Object.values(cliente).every(x => x !== null && x !== '')) {
-            create(URL, cliente)
-              .then(data => {
-                jsonData = [...jsonData, cliente];
-                ok();
-              })
-              .catch(err => ko());
-          }
-        }}>
-        <span>✏️</span>
-      </Boton>
+  <Cliente bind:cliente>
+    <div style="text-align: right">
+      <Boton {cliente} tipo="insertar" />
     </div>
   </Cliente>
 </div>
@@ -84,25 +48,10 @@
 <div class="container">
   {#each datos as cliente}
     <Cliente {cliente}>
-      <div slot="botones" class="botones">
-        <Boton
-          class="btn btn-modificar"
-          on:click={() => update(URL, cliente._id, cliente)
-              .then(data => ok())
-              .catch(err => ko())}>
-          <span>📝</span>
-        </Boton>
-        <Boton
-          class="btn btn-eliminar"
-          on:click={() => del(URL, cliente._id)
-              .then(data => {
-                jsonData = jsonData.filter(x => x._id !== data._id);
-                ok();
-              })
-              .catch(err => ko())}>
-          <span>❌</span>
-        </Boton>
+      <div style="text-align: right">
+        <Boton {cliente} tipo="modificar" />
+        <Boton {cliente} tipo="eliminar" />
       </div>
     </Cliente>
   {/each}
-</div> -->
+</div>
