@@ -1,6 +1,5 @@
 <script>
   import Boton from "./Boton.svelte";
-  import { urlClientes as URL } from "./config.js";
 
   export let cliente = {};
 

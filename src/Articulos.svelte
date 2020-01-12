@@ -1,51 +1,39 @@
 <script>
-  import {
-    urlArticulos as URL,
-    create,
-    read,
-    update,
-    del
-  } from "./config.js";
-  import { onMount } from "svelte";
+  import { jsonData } from "./store.js";
+  import { onMount, getContext } from "svelte";
 
-  import Form from "./Form.svelte";
+  import Buscar from "./Buscar.svelte";
   import Articulo from "./Articulo.svelte";
   import Boton from "./Boton.svelte";
 
+  const URL = getContext("URL");
+
   let busqueda = "";
-  let jsonData = [];
   let articulo = {};
 
   onMount(async () => {
-    const response = await fetch(URL);
-    jsonData = await response.json();
+    const response = await fetch(URL.articulos);
+    const data = await response.json();
+    $jsonData = data;
   });
 
   $: regex = new RegExp(busqueda, "gi");
   $: datos = busqueda
-    ? jsonData.filter(element => regex.test(element.nombre))
-    : jsonData;
+    ? $jsonData.filter(element => regex.test(element.nombre))
+    : $jsonData;
 
-  // this se refiere al formulario
-  function handleSubmit() {
-    busqueda = this.elements.buscar.value;
-  }
+  //////////////////////
+  // let promesa = refrescar(); 
 
-  // this se refiere al input
-  function handleKeyup() {
-    busqueda = this.value;
-  }
-
-  function ok() {
-    OK.style.display = "block";
-    setTimeout(() => (OK.style.display = "none"), 1500);
-    // console.log(jsonData);
-  }
-
-  function ko() {
-    KO.style.display = "block";
-    setTimeout(() => (KO.style.display = "none"), 1500);
-  }
+  // async function refrescar() {
+  //   const response = await fetch(
+  //     "https://tiendapwa.herokuapp.com/api/articulos"
+  //   );
+  //   return await response.json();
+  // }
+  // function handleClick() {
+  // 	promesa = refrescar();
+  // }
 </script>
 
 <style>
@@ -56,34 +44,15 @@
     justify-content: left;
     flex-wrap: wrap;
   }
-
-  .botones {
-    text-align: right;
-  }
 </style>
 
 <h1>ARTÍCULOS</h1>
-<Form {handleSubmit} {handleKeyup} />
-<!-- Object.keys(articulo).every(key => articulo[key] !== undefined && articulo[key] !== '' -->
+<Buscar bind:busqueda />
+
 <div class="container">
-  <Articulo bind:articulo={articulo} >
-    <div slot="botones" class="botones">
-      <Boton
-        class="btn btn-insertar"
-        on:click={() => {
-          <!-- console.log("hola", articulo); -->
-          if (Object.keys(articulo).length > 1 
-           && Object.values(articulo).every(x => (x !== undefined && x != ''))) {
-            create(URL, articulo)
-              .then(data => {
-                jsonData = [...jsonData, data ];              
-                ok();                
-              })
-              .catch(err => ko());              
-          }       
-        }}>
-        <span>✏️</span>
-      </Boton>
+  <Articulo bind:articulo>
+    <div style="text-align: right">
+      <Boton {articulo} tipo="insertar" />
     </div>
   </Articulo>
 </div>
@@ -91,25 +60,30 @@
 <div class="container">
   {#each datos as articulo}
     <Articulo {articulo}>
-      <div slot="botones" class="botones">
-        <Boton
-          class="btn btn-modificar"
-          on:click={() => update(URL, articulo._id, articulo)
-              .then(data => ok())
-              .catch(err => ko())}>
-          <span>📝</span>
-        </Boton>
-        <Boton
-          class="btn btn-eliminar"
-          on:click={() => del(URL, articulo._id)
-              .then(data => {
-                jsonData = jsonData.filter(x => x._id !== data._id);
-                ok();
-              })
-              .catch(err => ko())}>
-          <span>❌</span>
-        </Boton>
+      <div style="text-align: right">
+        <Boton {articulo} tipo="modificar" />
+        <Boton {articulo} tipo="eliminar" />
       </div>
     </Articulo>
   {/each}
 </div>
+
+<!-- <button on:click={() => (promesa = refrescar())}>Refrescar</button> -->
+
+<!-- FETCH -->
+<!-- {#await promesa}
+  <p>...recuperando datos</p>
+{:then data}
+  <div class="container">
+    {#each data as articulo}
+      <Articulo {articulo}>
+        <div style="text-align: right">
+          <Boton {articulo} tipo="modificar" />
+          <Boton {articulo} tipo="eliminar" />
+        </div>
+      </Articulo>
+    {/each}
+  </div>
+{:catch error}
+  <p style="color: red">{error.message}</p>
+{/await} -->

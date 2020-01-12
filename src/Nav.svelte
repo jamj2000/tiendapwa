@@ -9,7 +9,6 @@
       : (this.src = "/assets/cerrar.svg");
     menuVisible = !menuVisible;
 
-    // Sólo ES6+
     [...document.getElementsByClassName("item")].forEach(element =>
       element.classList.toggle("active")
     );

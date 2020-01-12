@@ -1,7 +1,86 @@
 <script>
-  let class_name = "";
-  export { class_name as class };
+  import { jsonData } from "./store.js";
+  import { onMount, getContext } from "svelte";
 
+  export let tipo = "insertar"; // modificar, eliminar
+  export let articulo = {};
+  export const refrescar = () => {};
+
+  let clases = "";
+  export let handler = () => {};
+  const URL = getContext("URL");
+
+  // const jsonData = getContext("jsonData");
+
+  onMount(() => {
+    switch (tipo) {
+      case "insertar":
+        handler = insertar;
+        clases = "btn btn-insertar";
+        break;
+      case "modificar":
+        handler = modificar;
+        clases = "btn btn-modificar";
+        break;
+      case "eliminar":
+        handler = eliminar;
+        clases = "btn btn-eliminar";
+        break;
+      default:
+    }
+  });
+
+  function insertar() {
+    // console.log(promesa);
+    if (
+      Object.keys(articulo).length > 1 &&
+      Object.values(articulo).every(x => x !== undefined && x != "")
+    ) {
+      fetch(URL.articulos, {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(articulo)
+      })
+        .then(res => res.json())
+        .then(data => {
+          $jsonData = [...$jsonData, data];
+          ok();
+        })
+        .catch(err => ko());
+    }
+  }
+
+  function modificar() {
+    fetch(URL.articulos + articulo._id, {
+      method: "PUT",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify(articulo)
+    })
+      .then(res => res.json())
+      .then(data => ok())
+      .catch(err => ko());
+  }
+
+  function eliminar() {
+    fetch(URL.articulos + articulo._id, { method: "DELETE" })
+      .then(res => res.json())
+      .then(data => {
+        $jsonData = $jsonData.filter(x => x._id !== data._id);
+        ok();
+      })
+      .catch(err => ko());
+  }
+
+  function ok() {
+    OK.style.display = "block";
+    setTimeout(() => (OK.style.display = "none"), 1500);
+    // console.log(jsonData);
+  }
+
+  function ko() {
+    KO.style.display = "block";
+    setTimeout(() => (KO.style.display = "none"), 1500);
+  }
 </script>
 
 <style>
@@ -9,7 +88,7 @@
     font-weight: bold;
     padding-left: 20px;
     padding-right: 20px;
-    cursor:  pointer;
+    cursor: pointer;
     border-radius: 3px;
     font-size: 1em;
     transition: all 0.3s ease-in-out;
@@ -25,6 +104,9 @@
     color: #13a600;
     background-color: lightgreen;
   }
+  .btn-insertar::before {
+    content: "✏️";
+  }
   .btn-insertar::after {
     content: " Insertar";
   }
@@ -38,6 +120,9 @@
     color: #0085a6;
     background-color: lightblue;
   }
+  .btn-modificar::before {
+    content: "📝";
+  }
   .btn-modificar::after {
     content: " Modificar";
   }
@@ -50,6 +135,9 @@
     border: 1px solid #ec0115;
     color: #ec0115;
     background-color: lightsalmon;
+  }
+  .btn-eliminar::before {
+    content: "❌";
   }
   .btn-eliminar::after {
     content: " Eliminar";
@@ -67,7 +155,4 @@
   }
 </style>
 
-
-<button class={class_name} on:click >
-  <slot />
-</button>
+<button class={clases} on:click={handler} />

@@ -2,6 +2,18 @@
   import Nav from "./Nav.svelte";
   import Contenido from "./Contenido.svelte";
   import { Router, Link, Route } from "svelte-routing";
+
+  import { setContext } from "svelte";
+
+  const URL = {
+    articulos : "https://tiendapwa.herokuapp.com/api/articulos/",
+    clientes :  "https://tiendapwa.herokuapp.com/api/clientes/"
+  };
+
+  const jsonData = [];
+
+  setContext("URL", URL);
+  setContext("jsonData", jsonData);
 </script>
 
 <style>

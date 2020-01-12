@@ -47,17 +47,12 @@
 </style>
 
 <div class="card" on:click>
-
-  <!-- <p>{articulo._id}</p> -->
   <input bind:value={articulo.nombre} class="title" />
   <input
     type="number"
     min="0"
     max="9999.99"
     step=".01"
-    bind:value={articulo.precio} />
-  €
-  <slot name="botones" />
-  <slot {articulo} />
-    <!-- nom {articulo.nombre} prec {articulo.precio} -->
+    bind:value={articulo.precio} />  €
+  <slot />
 </div>

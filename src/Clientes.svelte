@@ -1,16 +1,17 @@
 <script>
-  import { urlClientes as URL, create, read, update, del } from "./config.js";
-  import { onMount } from "svelte";
+  import { onMount, getContext } from "svelte";
 
-  import Form from "./Form.svelte";
+  import Buscar from "./Buscar.svelte";
   import Cliente from "./Cliente.svelte";
   import Boton from "./Boton.svelte";
+
+  const URL = getContext('URL');
 
   let busqueda = "";
   let jsonData = [];
 
   onMount(async () => {
-    const response = await fetch(URL);
+    const response = await fetch(URL.clientes);
     jsonData = await response.json();
   });
 
@@ -19,10 +20,10 @@
     ? jsonData.filter(element => regex.test(element.nombre))
     : jsonData;
 
-  // this se refiere al formulario
-  function handleSubmit() {
-    busqueda = this.elements.buscar.value;
-  }
+  // // this se refiere al formulario
+  // function handleSubmit() {
+  //   busqueda = this.elements.buscar.value;
+  // }
 
   // this se refiere al input
   function handleKeyup() {
@@ -56,8 +57,8 @@
   }
 </style>
 
-<h1>CLIENTES</h1>
-<Form {handleSubmit} {handleKeyup} />
+<!-- <h1>CLIENTES</h1>
+<Buscar {handleKeyup} />
 
 <div class="container">
   <Cliente let:cliente>
@@ -104,4 +105,4 @@
       </div>
     </Cliente>
   {/each}
-</div>
+</div> -->
