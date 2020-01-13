@@ -1,13 +1,15 @@
 <script>
   import { jsonData } from "./store.js";
-  import { onMount, getContext } from "svelte";
+  import { onMount } from "svelte";
 
   export let tipo = "insertar"; // modificar, eliminar
-  export let articulo = {};
-
-  const URL = getContext("URL");
+  export let coleccion = "articulos"; // clientes
+  export let objeto = {};
+  
+ 
   let handler = () => {};  
   let clases = "";
+  let url = "";
 
 
   onMount(() => {
@@ -26,17 +28,23 @@
         break;
       default:
     }
+
+    switch (coleccion) {
+      case "articulos": url="https://tiendapwa.herokuapp.com/api/articulos/"; break;
+      case "clientes": url="https://tiendapwa.herokuapp.com/api/clientes/"; break;
+      default:
+    }
   });
 
   function insertar() {
     if (
-      Object.keys(articulo).length > 1 &&
-      Object.values(articulo).every(x => x !== undefined && x != "")
+      Object.keys(objeto).length > 1 &&
+      Object.values(objeto).every(x => x !== undefined && x != "")
     ) {
-      fetch(URL.articulos, {
+      fetch(url, {
         method: "POST",
         headers: { "Content-Type": "application/json" },
-        body: JSON.stringify(articulo)
+        body: JSON.stringify(objeto)
       })
         .then(res => res.json())
         .then(data => {
@@ -48,10 +56,10 @@
   }
 
   function modificar() {
-    fetch(URL.articulos + articulo._id, {
+    fetch(url + objeto._id, {
       method: "PUT",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(articulo)
+      body: JSON.stringify(objeto)
     })
       .then(res => res.json())
       .then(data => ok())
@@ -59,7 +67,7 @@
   }
 
   function eliminar() {
-    fetch(URL.articulos + articulo._id, { method: "DELETE" })
+    fetch(url + objeto._id, { method: "DELETE" })
       .then(res => res.json())
       .then(data => {
         $jsonData = $jsonData.filter(x => x._id !== data._id);
