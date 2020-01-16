@@ -29,9 +29,10 @@
       default:
     }
 
+    // https://tiendapwa.herokuapp.com
     switch (coleccion) {
-      case "articulos": url="https://tiendapwa.herokuapp.com/api/articulos/"; break;
-      case "clientes": url="https://tiendapwa.herokuapp.com/api/clientes/"; break;
+      case "articulos": url="/api/articulos/"; break;
+      case "clientes": url="/api/clientes/"; break;
       default:
     }
   });

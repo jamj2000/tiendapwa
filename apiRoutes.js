@@ -4,6 +4,7 @@ const { Cliente, Articulo } = require('./models');
 const router = express.Router();
 
 
+
 //============================
 // CLIENTES
 //============================
@@ -37,20 +38,24 @@ router.delete('/clientes/:id', (req, res) => {
 
 // actualizar un Cliente
 router.put('/clientes/:id', (req, res) => {
-    Cliente.findOneAndUpdate({ _id: req.params.id }, { $set: { nombre: req.body.nombre, apellidos: req.body.apellidos } }, (err, data) => {
-        if (err) res.json({ error: err });
-        else     res.json(data);
-    });
+    Cliente.findOneAndUpdate(
+        { _id: req.params.id }, 
+        { $set: { nombre: req.body.nombre, apellidos: req.body.apellidos } }, 
+        (err, data) => {
+            if (err) res.json({ error: err });
+            else     res.json(data);
+        }
+    );
 });
 
 
 // insertar un Cliente
 router.post('/clientes', (req, res) => {
     const cliente = new Cliente({ nombre: req.body.nombre, apellidos: req.body.apellidos });
-    cliente.save((err, data) => {
+    cliente.save( (err, data) => {
         if (err) res.json({ error: err });
         else     res.json(data);
-    });
+    } );
 });
 
 
@@ -62,7 +67,7 @@ router.post('/clientes', (req, res) => {
 router.get('/articulos', function (req, res) {
     Articulo.find({}, (err, data) => {
         if (err) res.json({ error: err });
-        else     res.json(data);
+        else res.json(data);
     });
 });
 
@@ -71,7 +76,7 @@ router.get('/articulos', function (req, res) {
 router.get('/articulos/:id', (req, res) => {
     Articulo.findOne({ _id: req.params.id }, (err, data) => {
         if (err) res.json({ error: err });
-        else     res.json(data);
+        else res.json(data);
     });
 });
 
@@ -80,7 +85,7 @@ router.get('/articulos/:id', (req, res) => {
 router.delete('/articulos/:id', (req, res) => {
     Articulo.findOneAndRemove({ _id: req.params.id }, (err, data) => {
         if (err) res.json({ error: err });
-        else     res.json(data);
+        else res.json(data);
     });
 });
 
@@ -89,7 +94,7 @@ router.delete('/articulos/:id', (req, res) => {
 router.put('/articulos/:id', (req, res) => {
     Articulo.findOneAndUpdate({ _id: req.params.id }, { $set: { nombre: req.body.nombre, precio: req.body.precio } }, (err, data) => {
         if (err) res.json({ error: err });
-        else     res.json(data);
+        else res.json(data);
     });
 });
 
@@ -99,7 +104,7 @@ router.post('/articulos', (req, res) => {
 
     articulo.save((err, data) => {
         if (err) res.json({ error: err });
-        else     res.json(data);
+        else res.json(data);
     });
 });
 

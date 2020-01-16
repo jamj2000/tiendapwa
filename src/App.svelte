@@ -5,9 +5,11 @@
 
   import { setContext } from "svelte";
 
+// https://tiendapwa.herokuapp.com
+
   const URL = {
-    articulos : "https://tiendapwa.herokuapp.com/api/articulos/",
-    clientes :  "https://tiendapwa.herokuapp.com/api/clientes/"
+    articulos :  "/api/articulos/",
+    clientes :   "/api/clientes/"
   };
 
   const jsonData = [];

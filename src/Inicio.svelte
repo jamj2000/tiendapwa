@@ -33,5 +33,5 @@
       : Permite realizar operaciones CRUD sobre los clientes de la BD.
     </li>
   </ul>
-  <p>Añadido soporte para OAuth.</p>
+  <p>En elaboración el soporte para OAuth.</p>
 </div>
