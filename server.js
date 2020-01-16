@@ -4,6 +4,7 @@ const path = require('path');
 const https = require('https');
 
 // Dependencias a instalar 
+require('dotenv').config();
 const cors = require('cors');
 const morgan = require('morgan');
 const express = require('express');
