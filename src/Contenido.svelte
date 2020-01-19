@@ -14,7 +14,7 @@
   }
 </style>
 
-<main>
+<main id="contenido">
   <Route path="/" component={Inicio} />
   <Route path="/articulos" component={Articulos} />
   <Route path="/clientes" component={Clientes} />

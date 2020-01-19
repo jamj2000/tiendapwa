@@ -3,18 +3,31 @@
 
   let texto = '';
 
-  function perfil() {
-    fetch("/perfil")
-      .then(function(response) {
-        return response.text();
-      })
-      .then(function(text) {
-        texto = text;
-      });
-  }
+  // function perfil() {
+  //   fetch("/secret")
+  //     .then(function(response) {
+  //       return response.text();
+  //     })
+  //     .then(function(text) {
+  //       console.log(text);
+  //       texto = text;
+  //     });
+  // }
+
+async function perfil () {
+    const response = await fetch('/auth/google',  {mode: 'no-cors'});  
+    const data = await response.text();
+    console.log(data);
+}
+
   function popup(proveedor) {
     let w = window.open("/auth/" + proveedor, "Sign In", "width=985,height=735");
-    w.location.href = '/perfil';
+    // w.location.href = '/secret';
+  }
+
+  function contenido () {
+    // document.getElementById('contenido').innerHTML = "<h1>Hola</h1>";
+     window.location.href = '/auth/google';
   }
 
 onMount (perfil);
@@ -28,7 +41,12 @@ onMount (perfil);
   <div id="signin">
     <h1>Iniciar sesión</h1>
 
-    <button class="btn-si btn-google" on:click={() => popup('google')} />
+    <!-- <button class="btn-si btn-google" on:click={perfil} />
+    <button class="btn-si btn-facebook" on:click={() => perfil()} />
+    <button class="btn-si btn-linkedin" on:click={() => perfil()} />
+    <button class="btn-si btn-pinterest" on:click={() => perfil()} />
+    <button class="btn-si btn-github" on:click={() => perfil()} /> -->
+    <button class="btn-si btn-google" on:click={contenido} />
     <button class="btn-si btn-facebook" on:click={() => popup('facebook')} />
     <button class="btn-si btn-linkedin" on:click={() => popup('linkedin')} />
     <button class="btn-si btn-pinterest" on:click={() => popup('pinterest')} />

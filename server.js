@@ -46,9 +46,9 @@ app.set("view engine", "ejs");
 
 
 app.use(express.static(path.join(__dirname, 'public'))); // Archivos estáticos
-app.use(express.json());                        // Content-type: application/json
+app.use(express.json());                          // Content-type: application/json
 app.use(express.urlencoded({ extended: true }));  // Content-type: application/x-www-form-urlencoded
-
+app.use(express.text());                          // Content-type: text/plain
 
 app.use(session({
     store: new SQLiteStore,
@@ -82,17 +82,19 @@ function isUserAuthenticated(req, res, next) {
 
 // app.get('/', login.ensureLoggedIn('/auth/login'),
 //     function (req, res) {
-//         res.render('index.ejs', { user: req.user });
+//         res.send('<h1>Bienvenido</h1>');
 //     });
 
 
 // // Secret route
 app.get('/secret', isUserAuthenticated, (req, res) => {
+    // res.json({exito: 'OK'});
     res.send('Estás viendo el contenido de la aplicación<br><br><a href="/">Volver a página de inicio</a>');
 });
 
 app.get('/perfil', isUserAuthenticated, (req, res) => {
-    res.render('perfil', { user: req.user });
+    //  res.render('perfil', { user: req.user });
+    console.log({ user: req.user });
 });
 
 app.get('/logout', (req, res) => {
