@@ -75,7 +75,7 @@ function isUserAuthenticated(req, res, next) {
         next();
     } else {
         // res.render('login.ejs');
-        res.send();
+        res.send("No autenticado");
     }
 }
 
