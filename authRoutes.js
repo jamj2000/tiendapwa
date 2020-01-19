@@ -28,12 +28,31 @@ router.get('/google',
         scope: ['profile'] // Used to specify the required data
     }));
 
-router.get('/google/callback',
-    passport.authenticate('google', {
-        successRedirect: '/secret',
-        failureRedirect: '/auth/google'
-    }));
+// router.get('/google/callback',
+//     passport.authenticate('google', {
+//         successRedirect: '/secret',
+//         failureRedirect: '/auth/google'
+//     }));
 
+
+router.get('/google/callback',
+    passport.authenticate('google', { failureRedirect: '/auth/google' }),
+    function (req, res) {
+        // Successful authentication.
+        //   res.json(req.user);
+        res.send(respuesta(req.user));
+
+    });
+
+function respuesta(user) {
+    return '<h1>Perfil</h1>'
+        // + '<img src="' + user.photos[0].value + '">'
+        + '<br>' + user.displayName
+        + '<br> ID: ' + user.id
+        + '<br> PROVEEDOR: <strong>' + user.provider + '</strong>'
+        + '<br><br>'
+        + '<a href="/">Ir a página de inicio</a>';
+}
 
 router.get('/facebook',
     passport.authenticate('facebook'));
