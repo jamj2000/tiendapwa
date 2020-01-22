@@ -1,5 +1,6 @@
 const express = require('express');
 const passport = require('passport');
+const jwt = require('jsonwebtoken');
 // const GoogleStrategy = require('passport-google-oauth20');
 // const FacebookStrategy = require('passport-facebook').Strategy;
 // const config = require('./config.js');
@@ -38,10 +39,9 @@ router.get('/google',
 router.get('/google/callback',
     passport.authenticate('google', { failureRedirect: '/auth/google' }),
     function (req, res) {
-        // Successful authentication.
-        //   res.json(req.user);
-        res.send(respuesta(req.user));
-
+        // res.send(respuesta(req.user));
+        const token = jwt.sign (req.user, 'my secret key');
+        return res.json({user, token});
     });
 
 function respuesta(user) {

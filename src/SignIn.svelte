@@ -25,9 +25,9 @@ async function perfil () {
     // w.location.href = '/secret';
   }
 
-  function contenido () {
+  function contenido (sitio) {
     // document.getElementById('contenido').innerHTML = "<h1>Hola</h1>";
-     window.location.href = '/auth/google';
+     window.location.href = '/auth/' + sitio;
   }
 
 onMount (perfil);
@@ -46,11 +46,17 @@ onMount (perfil);
     <button class="btn-si btn-linkedin" on:click={() => perfil()} />
     <button class="btn-si btn-pinterest" on:click={() => perfil()} />
     <button class="btn-si btn-github" on:click={() => perfil()} /> -->
-    <button class="btn-si btn-google" on:click={contenido} />
+
+     <!-- <button class="btn-si btn-google" on:click={() => popup('google')} />
     <button class="btn-si btn-facebook" on:click={() => popup('facebook')} />
     <button class="btn-si btn-linkedin" on:click={() => popup('linkedin')} />
     <button class="btn-si btn-pinterest" on:click={() => popup('pinterest')} />
-    <button class="btn-si btn-github" on:click={() => popup('github')} />
+    <button class="btn-si btn-github" on:click={() => popup('github')} /> -->
 
+    <button class="btn-si btn-google" on:click={() => {contenido ('google')}} />
+    <button class="btn-si btn-facebook" on:click={() => {contenido ('facebook')}} />
+    <button class="btn-si btn-linkedin" on:click={() => {contenido ('linkedin')}} />
+    <button class="btn-si btn-pinterest" on:click={() => {contenido ('pinterest')}} />
+    <button class="btn-si btn-github" on:click={() => {contenido ('github')}} />
   </div>
 {/if}

@@ -4164,26 +4164,26 @@ var app = (function () {
     			button3 = element("button");
     			t5 = space();
     			button4 = element("button");
-    			add_location(h1, file$9, 41, 4, 892);
+    			add_location(h1, file$9, 41, 4, 899);
     			attr_dev(button0, "class", "btn-si btn-google");
-    			add_location(button0, file$9, 48, 4, 1264);
+    			add_location(button0, file$9, 55, 4, 1667);
     			attr_dev(button1, "class", "btn-si btn-facebook");
-    			add_location(button1, file$9, 49, 4, 1326);
+    			add_location(button1, file$9, 56, 4, 1748);
     			attr_dev(button2, "class", "btn-si btn-linkedin");
-    			add_location(button2, file$9, 50, 4, 1404);
+    			add_location(button2, file$9, 57, 4, 1833);
     			attr_dev(button3, "class", "btn-si btn-pinterest");
-    			add_location(button3, file$9, 51, 4, 1482);
+    			add_location(button3, file$9, 58, 4, 1918);
     			attr_dev(button4, "class", "btn-si btn-github");
-    			add_location(button4, file$9, 52, 4, 1562);
+    			add_location(button4, file$9, 59, 4, 2005);
     			attr_dev(div, "id", "signin");
-    			add_location(div, file$9, 40, 2, 870);
+    			add_location(div, file$9, 40, 2, 877);
 
     			dispose = [
-    				listen_dev(button0, "click", contenido, false, false, false),
-    				listen_dev(button1, "click", /*click_handler*/ ctx[1], false, false, false),
-    				listen_dev(button2, "click", /*click_handler_1*/ ctx[2], false, false, false),
-    				listen_dev(button3, "click", /*click_handler_2*/ ctx[3], false, false, false),
-    				listen_dev(button4, "click", /*click_handler_3*/ ctx[4], false, false, false)
+    				listen_dev(button0, "click", /*click_handler*/ ctx[1], false, false, false),
+    				listen_dev(button1, "click", /*click_handler_1*/ ctx[2], false, false, false),
+    				listen_dev(button2, "click", /*click_handler_2*/ ctx[3], false, false, false),
+    				listen_dev(button3, "click", /*click_handler_3*/ ctx[4], false, false, false),
+    				listen_dev(button4, "click", /*click_handler_4*/ ctx[5], false, false, false)
     			];
     		},
     		m: function mount(target, anchor) {
@@ -4297,21 +4297,33 @@ var app = (function () {
     	console.log(data);
     }
 
-    function popup(proveedor) {
-    	let w = window.open("/auth/" + proveedor, "Sign In", "width=985,height=735");
-    }
-
-    function contenido() {
-    	window.location.href = "/auth/google";
+    function contenido(sitio) {
+    	window.location.href = "/auth/" + sitio;
     }
 
     function instance$a($$self) {
     	let texto = "";
     	onMount(perfil);
-    	const click_handler = () => popup("facebook");
-    	const click_handler_1 = () => popup("linkedin");
-    	const click_handler_2 = () => popup("pinterest");
-    	const click_handler_3 = () => popup("github");
+
+    	const click_handler = () => {
+    		contenido("google");
+    	};
+
+    	const click_handler_1 = () => {
+    		contenido("facebook");
+    	};
+
+    	const click_handler_2 = () => {
+    		contenido("linkedin");
+    	};
+
+    	const click_handler_3 = () => {
+    		contenido("pinterest");
+    	};
+
+    	const click_handler_4 = () => {
+    		contenido("github");
+    	};
 
     	$$self.$capture_state = () => {
     		return {};
@@ -4321,7 +4333,14 @@ var app = (function () {
     		if ("texto" in $$props) $$invalidate(0, texto = $$props.texto);
     	};
 
-    	return [texto, click_handler, click_handler_1, click_handler_2, click_handler_3];
+    	return [
+    		texto,
+    		click_handler,
+    		click_handler_1,
+    		click_handler_2,
+    		click_handler_3,
+    		click_handler_4
+    	];
     }
 
     class SignIn extends SvelteComponentDev {
