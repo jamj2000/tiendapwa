@@ -70,12 +70,12 @@ Este comando descarga los archivos iniciales de un repositorio de github, en con
 
 > Nota: Como comparación frente a otros frameworks ...
 >
-> **Vue**
-> npx  @vue/cli  create  nombre-proyecto   # Unos 100MB aprox.
-> **React**
-> npx  create-react-app  nombre-proyecto   # Unos 200MB aprox.
-> **Angular**
-> npx  @angular/cli new  nombre-proyecto   # Unos 300MB aprox.
+> - **Vue**
+>   - ```npx  @vue/cli  create  nombre-proyecto   # Unos 100MB aprox.```
+> - **React**
+>   - ```npx  create-react-app  nombre-proyecto   # Unos 200MB aprox.```
+> - **Angular**
+>   - ```npx  @angular/cli new  nombre-proyecto   # Unos 300MB aprox.```
 
 
 ## Examinar el proyecto creado
